@@ -37,7 +37,7 @@ public boolean crearConexion()
    try {
       
       Class.forName("com.mysql.jdbc.Driver");
-      conexion = DriverManager.getConnection("jdbc:mysql://host:puerto/saes","root","escom");
+      conexion = DriverManager.getConnection("jdbc:mysql://host:puerto/saesdb","root","escom");
    } catch (SQLException ex) {
       ex.printStackTrace();
       return false;
@@ -85,4 +85,19 @@ public ResultSet ejecutarSQLSelect(String sql)
    return resultado;
 }
 
+// Método utilizado para establecer la conexión con la base de datos
+// @return estado regresa el estado de la conexión, true si se estableció la conexión,
+// falso en caso contrario
+
+public boolean cerrarConexion()
+{
+   try {
+      
+      conexion.close();
+   } catch (SQLException ex) {
+      ex.printStackTrace();
+      return false;
+   }
+      return true;
+}
 }
