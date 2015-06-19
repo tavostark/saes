@@ -17,11 +17,11 @@ import java.util.List;
 
 
 
-public class Conexion {
+public class Conexion_DB_DAO {
     
 private static Connection conexion = null; 
-     // Método utilizado para recuperar el valor del atributo Conexion
-     // @return Conexion contiene el estado de la conexión
+     // Método utilizado para recuperar el valor del atributo Conexion_DB_DAO
+     // @return Conexion_DB_DAO contiene el estado de la conexión
  public Connection getConexion()
  {
    return conexion;
