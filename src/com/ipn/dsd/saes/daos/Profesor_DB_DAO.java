@@ -1,22 +1,27 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 public class Profesor_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_PROFESOR = "select id_area,rfc from profesor where id_profesor=";
     private static String SQL_PROFESOR_INSERT="INSERT INTO profesor (id_profesor,id_area,rfc) VALUES(";
     private static String SQL_PROFESOR_DELETE="DELETE FROM profesor WHERE id_profesor=";
     private static String SQL_PROFESOR_UPDATE="UPDATE profesor SET rfc=";
     
-    public void profesor_select (String id_profesor,String id_area){
+    public ResultSet profesor_select (String id_profesor,String id_area){
+        ResultSet rs=null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_PROFESOR+id_profesor+" AND id_area="+id_area);
+                rs=con.ejecutarSQLSelect(SQL_PROFESOR+id_profesor+" AND id_area="+id_area);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
                     //INSERT, DELETE y UPDATE

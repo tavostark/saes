@@ -1,22 +1,27 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 public class Periodo_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_PERIODO = "select nb_periodo,fh_inicio,fh_fin,fh_reg_cal_ini,fh_reg_cal_fin from periodo where id_periodo=";
     private static String SQL_PERIODO_INSERT="INSERT INTO periodo (id_periodo,nb_periodo,fh_inicio,fh_fin,fh_reg_cal_ini,fh_reg_cal_fin) VALUES(";
     private static String SQL_PERIODO_DELETE="DELETE FROM periodo WHERE id_periodo=";
     private static String SQL_PERIODO_UPDATE="UPDATE periodo SET nb_periodo=";
     
-    public void periodo_select (String id_periodo){
+    public ResultSet periodo_select (String id_periodo){
+        ResultSet rs = null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_PERIODO+id_periodo);
+                rs=con.ejecutarSQLSelect(SQL_PERIODO+id_periodo);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
                 //INSERT, DELETE y UPDATE

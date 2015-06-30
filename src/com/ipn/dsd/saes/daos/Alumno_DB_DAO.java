@@ -1,6 +1,8 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 
 public class Alumno_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_ALUMNO = "select boleta from alumno where id_alumno=";
@@ -8,16 +10,19 @@ public class Alumno_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_ALUMNO_DELETE="DELETE FROM alumno WHERE id_alumno=";
     private static String SQL_ALUMNO_UPDATE="UPDATE alumno SET boleta=";
 
-    public void alumno_select (String id_alumno){
+    public ResultSet alumno_select (String id_alumno){
+        ResultSet rs = null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_ALUMNO+id_alumno);
+                rs=con.ejecutarSQLSelect(SQL_ALUMNO+id_alumno);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
                         //INSERT, DELETE y UPDATE

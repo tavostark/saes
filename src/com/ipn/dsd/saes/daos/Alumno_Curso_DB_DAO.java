@@ -1,22 +1,27 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 public class Alumno_Curso_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_ALUMNO_CURSO= "select id_alumno,id_periodo,id_materia,id_area,id_profesor,id_calificacion from alumno_curso;";
     private static String SQL_ALUMNO_CURSO_INSERT="INSERT INTO alumno_curso (id_periodo,id_materia,id_area,id_profesor) VALUES(";
     private static String SQL_ALUMNO_CURSO_DELETE="DELETE FROM alumno_curso WHERE ";
     private static String SQL_ALUMNO_CURSO_UPDATE="UPDATE alumno_curso SET ";
     
-    public void alumno_curso_select (){
+    public ResultSet alumno_curso_select (){
+        ResultSet rs = null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_ALUMNO_CURSO);
+                rs=con.ejecutarSQLSelect(SQL_ALUMNO_CURSO);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
                 //INSERT, DELETE y UPDATE

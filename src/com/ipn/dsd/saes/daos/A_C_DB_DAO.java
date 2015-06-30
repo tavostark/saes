@@ -2,6 +2,9 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class A_C_DB_DAO extends Conexion_DB_DAO{
 
     private static String SQL_BUSCAR_AREA_CONOCIMIENTO = "select nb_area from area_conocimiento where id_area=";
@@ -9,17 +12,21 @@ public class A_C_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_BUSCAR_AREA_DELETE="DELETE FROM area_conocimiento WHERE id_area=";
     private static String SQL_BUSCAR_AREA_UPDATE="UPDATE area_conocimiento SET nb_area =";
     //SELECT
-    public void area_select (String id_area){
+    public ResultSet area_select (String id_area){
+            ResultSet rs = null;
             try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_BUSCAR_AREA_CONOCIMIENTO+id_area);
+                rs=con.ejecutarSQLSelect(SQL_BUSCAR_AREA_CONOCIMIENTO+id_area);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
             }
+            
     }
     //INSERT, DELETE y UPDATE
     public void area_insert (String id_area,String nb_area){

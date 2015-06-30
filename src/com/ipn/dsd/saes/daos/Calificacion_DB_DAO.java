@@ -1,22 +1,27 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 public class Calificacion_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_CALIFICACION= "select tx_calificacion from calificacion where id_calificacion=";
     private static String SQL_CALIFICACION_INSERT="INSERT INTO calificacion (id_calificacion,tx_calificacion) VALUES(";
     private static String SQL_CALIFICACION_DELETE="DELETE FROM calificacion WHERE id_calificacion=";
     private static String SQL_CALIFICACION_UPDATE="UPDATE calificacion SET tx_calificacion=";
     
-    public void calificacion_select (String id){
+    public ResultSet calificacion_select (String id){
+        ResultSet rs = null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_CALIFICACION+id);
+                rs=con.ejecutarSQLSelect(SQL_CALIFICACION+id);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
             //INSERT, DELETE y UPDATE

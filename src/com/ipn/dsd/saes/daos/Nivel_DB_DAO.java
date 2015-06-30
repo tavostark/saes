@@ -1,22 +1,27 @@
 
 package com.ipn.dsd.saes.daos;
 
+import java.sql.ResultSet;
+
 public class Nivel_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_NIVEL = "select nb_nivel,nu_materias from nivel where id_nivel=";
     private static String SQL_NIVEL_INSERT="INSERT INTO nivel (id_nivel,nb_nivel,nu_materias) VALUES(";
     private static String SQL_NIVEL_DELETE="DELETE FROM nivel WHERE id_nivel=";
     private static String SQL_NIVEL_UPDATE="UPDATE nivel SET nb_nivel=";
     
-    public void nivel_select (String id_nivel){
+    public ResultSet nivel_select (String id_nivel){
+        ResultSet rs= null;
          try{
                 Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
-                con.ejecutarSQLSelect(SQL_NIVEL+id_nivel);
+                rs = con.ejecutarSQLSelect(SQL_NIVEL+id_nivel);
                 con.cerrarConexion();
+                return rs;
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
+                return rs;
           }
     }
             //INSERT, DELETE y UPDATE
