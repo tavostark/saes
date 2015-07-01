@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.Nivel_DB_DAO;
 import com.ipn.dsd.saes.entidad.Nivel;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,6 +25,9 @@ public class Nivel_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes.i
     public ArrayList<Nivel> obtenerNiveles() throws RemoteException {
         
         ArrayList<Nivel> niveles = null;
+        
+        Nivel_DB_DAO nivelDB = new Nivel_DB_DAO();
+        niveles = nivelDB.getListaNiveles();
         
         return niveles;
         

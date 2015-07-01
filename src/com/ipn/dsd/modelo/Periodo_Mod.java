@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.Periodo_DB_DAO;
 import com.ipn.dsd.saes.entidad.Periodo;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -22,18 +23,74 @@ public class Periodo_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes
     }
 
     @Override
-    public Integer registrar(Periodo prd) throws RemoteException {
+    public Integer registrar(Periodo periodo) throws RemoteException {
         
         Integer resultado = null;
+        
+        if(!periodo.getNb_periodo().equals("") || !periodo.getNb_periodo().isEmpty()) {
+            if(periodo.getFh_inicio() != null) {
+                if(periodo.getFh_fin() != null) {
+                    if(periodo.getFh_reg_cal_ini() != null) {
+                        if(periodo.getFh_reg_cat_fin() != null){
+                            Periodo_DB_DAO  periodoDB = new Periodo_DB_DAO();
+                            resultado = periodoDB.periodo_insert(periodo);
+                        }
+                        else {
+                            resultado = -5;
+                        }
+                    }
+                    else{
+                        resultado = -4;
+                    }
+                }
+                else {
+                    resultado = -3;
+                }
+            }
+            else {
+                resultado = -2;
+            }
+        }
+        else{
+            resultado = -1;
+        }
         
         return resultado;
         
     }
 
     @Override
-    public Integer modificar(Periodo prd) throws RemoteException {
+    public Integer modificar(Periodo periodo) throws RemoteException {
         
         Integer resultado = null;
+        
+        if(!periodo.getNb_periodo().equals("") || !periodo.getNb_periodo().isEmpty()) {
+            if(periodo.getFh_inicio() != null) {
+                if(periodo.getFh_fin() != null) {
+                    if(periodo.getFh_reg_cal_ini() != null) {
+                        if(periodo.getFh_reg_cat_fin() != null){
+                            Periodo_DB_DAO  periodoDB = new Periodo_DB_DAO();
+                            resultado = periodoDB.periodo_update(periodo);
+                        }
+                        else {
+                            resultado = -5;
+                        }
+                    }
+                    else{
+                        resultado = -4;
+                    }
+                }
+                else {
+                    resultado = -3;
+                }
+            }
+            else {
+                resultado = -2;
+            }
+        }
+        else{
+            resultado = -1;
+        }
         
         return resultado;
         
@@ -44,6 +101,9 @@ public class Periodo_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes
         
         ArrayList<Periodo> periodos = null;
         
+        Periodo_DB_DAO periodoDB = new Periodo_DB_DAO();
+        periodos = periodoDB.getListaPeriodos();
+        
         return periodos;
         
     }
@@ -52,6 +112,10 @@ public class Periodo_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes
     public Periodo obtenerPeriodo(Date date) throws RemoteException {
         
         Periodo periodo = null;
+        
+        Periodo_DB_DAO periodoDB = new Periodo_DB_DAO();
+        
+        periodo = periodoDB.periodo_select(date);
         
         return periodo;
         

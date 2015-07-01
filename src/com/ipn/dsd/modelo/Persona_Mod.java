@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.Persona_DB_DAO;
 import com.ipn.dsd.saes.entidad.Persona;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -20,9 +21,36 @@ public class Persona_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes
     }
     
     @Override
-    public Integer registrar(Persona prsn) throws RemoteException {
+    public Integer registrar(Persona persona) throws RemoteException {
         
         Integer resultado = null;
+        
+        Persona_DB_DAO personaDB = new Persona_DB_DAO();
+        resultado = personaDB.persona_insert(persona);
+        
+        return resultado;
+        
+    }
+    
+    @Override
+    public Integer modificar(Persona persona) throws RemoteException {
+        
+        Integer resultado = null;
+        
+        Persona_DB_DAO personaDB = new Persona_DB_DAO();
+        resultado = personaDB.persona_update(persona);
+        
+        return resultado;
+        
+    }
+    
+    @Override
+    public Integer eliminar(Integer id) throws RemoteException {
+        
+        Integer resultado = null;
+        
+        Persona_DB_DAO personaDB = new Persona_DB_DAO();
+        resultado = personaDB.persona_delete(id);
         
         return resultado;
         

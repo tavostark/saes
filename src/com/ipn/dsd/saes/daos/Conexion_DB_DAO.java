@@ -58,6 +58,7 @@ public boolean ejecutarSQL(String sql)
    try {
       Statement sentencia = conexion.createStatement();
       sentencia.executeUpdate(sql);
+      
    } catch (SQLException ex) {
       ex.printStackTrace();
    return false;

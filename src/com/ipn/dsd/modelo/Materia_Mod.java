@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.Materia_DB_DAO;
 import com.ipn.dsd.saes.entidad.Alumno_Curso;
 import com.ipn.dsd.saes.entidad.Materia;
 import com.ipn.dsd.saes.entidad.Periodo;
@@ -50,20 +51,20 @@ public class Materia_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes
     }
 
     @Override
-    public ArrayList<Materia> obtenerListaMateriasArea(Integer intgr) throws RemoteException {
+    public ArrayList<Materia> obtenerListaMateriasArea(Integer idArea) throws RemoteException {
         
-        ArrayList<Materia> materias  = null;
+        Materia_DB_DAO materiaDB = new Materia_DB_DAO();
         
-        return materias;
+        return materiaDB.getListaMateriasArea(idArea);
         
     }
 
     @Override
-    public ArrayList<Materia> obtenerListaMateriasNivel(Integer intgr) throws RemoteException {
+    public ArrayList<Materia> obtenerListaMateriasNivel(Integer idNivel) throws RemoteException {
         
-        ArrayList<Materia> materias = null;
+        Materia_DB_DAO materiaDB = new Materia_DB_DAO();
         
-        return materias;
+        return materiaDB.getListaMateriasNivel(idNivel);
         
     }
 

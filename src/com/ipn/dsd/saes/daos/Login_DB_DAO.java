@@ -1,40 +1,97 @@
 
 package com.ipn.dsd.saes.daos;
 
+import com.ipn.dsd.saes.entidad.Alumno;
+import com.ipn.dsd.saes.entidad.Persona;
+import com.ipn.dsd.saes.entidad.Profesor;
 import java.sql.ResultSet;
-import java.util.List;
 
 public class Login_DB_DAO {
     
-    private static String  IdUsuario;
-    
-    public boolean Login(String Usuario, String contrasena){
-         try{
+    public Alumno loginAlumno(String boleta, String contrasena) {
+        
+        Alumno alumno = null;
+        Persona persona = null;
+        
+        Conexion_DB_DAO con =new Conexion_DB_DAO();
+        try{
                 ResultSet rs;
                 
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+               
                 con.crearConexion();
-                rs = con.ejecutarSQLSelect("select id from persona where nb_persona="+Usuario+" AND contrasena="+contrasena);
-                con.cerrarConexion();
+                rs = con.ejecutarSQLSelect("select p.nb_persona, p.contrasena from persona p join alumno a on a.id_alumno=p.id where a.boleta='"+boleta+"' and contrasena='"+contrasena+"';");
+                
                 //verificamos si exite si, si nos vuelve el id
-                if(rs.getRow() == 0 ) {
-                        System.out.println("Usuario registrado");
-                        IdUsuario = rs.getString("id");
-                        return true;
-                    } else {
-                        System.out.println("Usuario o contraseña no válida");
-                        return false;
-                    }
+                
+                        
+                if(rs.next()== true ) {
+                    
+                    persona = new Persona();
+                    persona.setNb_persona(rs.getString(0));
+                    persona.setPassword(rs.getString(1));
+                    alumno = new Alumno(boleta, persona);
+                } 
+                else {
+                    alumno = null;  
+                }
                 
                 }
             catch(Exception e){
-                System.out.println("SQLException: " + e);
-                return false;
+               
+                System.out.println("SQLException: " + e.getMessage());
+               
             }
+            finally {
+            
+                con.cerrarConexion();
+                
+            }
+        
+        return alumno;
+        
     }
-    public String getId(){
     
-         return IdUsuario;
+    public Profesor loginProfesor(String rfc, String contrasena) {
+        
+        Profesor profesor = null;
+        Persona persona = null;
+        
+        Conexion_DB_DAO con =new Conexion_DB_DAO();
+        try{
+                ResultSet rs;
+                
+                
+                con.crearConexion();
+                rs = con.ejecutarSQLSelect("select p.nb_persona,p.contrasena from persona p join profesor o on p.id=o.id_profesor where o.rfc='"+rfc+"' and p.contrasena='"+contrasena+"';");
+                
+                //verificamos si exite si, si nos vuelve el id
+                
+                        
+                if(rs.next()== true ) {
+                    persona = new Persona();
+                    persona.setNb_persona(rs.getString(0));
+                    persona.setPassword(rs.getString(1));
+                    
+                    profesor = new Profesor(rfc, persona);
+                } 
+                else {
+                    profesor = null;  
+                }
+                
+                }
+            catch(Exception e){
+               
+                System.out.println("SQLException: " + e.getMessage());
+               
+            }
+            finally {
+            
+                con.cerrarConexion();
+                
+            }
+        
+        return profesor;
+        
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.Curso_DB_DAO;
 import com.ipn.dsd.saes.entidad.Curso;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,6 +25,9 @@ public class Curso_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes.i
     public Integer registrar(Curso curso) throws RemoteException {
         
         Integer resultado = null;
+        
+        Curso_DB_DAO cursoDB = new Curso_DB_DAO();
+        resultado = cursoDB.curso_insert(curso);
         
         return resultado;
         
@@ -48,9 +52,12 @@ public class Curso_Mod extends UnicastRemoteObject implements com.ipn.dsd.saes.i
     }
 
     @Override
-    public ArrayList<Curso> obtenerListaCursosPeriodo(Integer intgr) throws RemoteException {
+    public ArrayList<Curso> obtenerListaCursosPeriodo(Integer idPeriodo) throws RemoteException {
         
         ArrayList<Curso> cursos = null;
+        
+        Curso_DB_DAO cursoDB = new Curso_DB_DAO();
+        cursos = cursoDB.getCursosPeriodo(idPeriodo);
         
         return cursos;
         

@@ -5,6 +5,7 @@
  */
 package com.ipn.dsd.modelo;
 
+import com.ipn.dsd.saes.daos.A_C_DB_DAO;
 import com.ipn.dsd.saes.entidad.Area_C;
 import com.ipn.dsd.saes.interfaces.AC_Interface;
 import java.rmi.RemoteException;
@@ -25,6 +26,9 @@ public class AC_Mod extends UnicastRemoteObject implements AC_Interface {
     public ArrayList<Area_C> obtenerAreas() throws RemoteException {
         
         ArrayList<Area_C> areas = null;
+        
+        A_C_DB_DAO acDB = new A_C_DB_DAO();
+        areas = acDB.getListaAreas();
         
         return areas;
         
