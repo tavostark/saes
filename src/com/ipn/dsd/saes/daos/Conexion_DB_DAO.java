@@ -5,15 +5,11 @@ package com.ipn.dsd.saes.daos;
  *
  * @author tavo
  */
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -37,7 +33,7 @@ public boolean crearConexion()
    try {
       
       Class.forName("com.mysql.jdbc.Driver");
-      conexion = DriverManager.getConnection("jdbc:mysql://host:puerto/saesdb","root","escom");
+      conexion = DriverManager.getConnection("jdbc:mysql://localhost/saes","root","Password1");
    } catch (SQLException ex) {
       ex.printStackTrace();
       return false;

@@ -38,7 +38,7 @@ public class Curso_DB_DAO extends Conexion_DB_DAO{
                 con.ejecutarSQL(SQL_CURSO_INSERT+curso.getId_materia()+","+curso.getId_area()+","+curso.getId_profesor()+");");
                 ResultSet rs = con.ejecutarSQLSelect("select last_insert_id();");
                 if(rs.next() == true) {
-                    id = rs.getInt(0);
+                    id = rs.getInt(1);
                 }
                 
             }
@@ -76,7 +76,7 @@ public class Curso_DB_DAO extends Conexion_DB_DAO{
             ResultSet rs = con.ejecutarSQLSelect("select id_periodo,id_materia,id_area,id_profesor from curso where id_periodo="+idPeriodo+";");
             
             while(rs.next()) {
-                cursos.add(new Curso(rs.getInt(0), rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+                cursos.add(new Curso(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4)));
             }
             
         }

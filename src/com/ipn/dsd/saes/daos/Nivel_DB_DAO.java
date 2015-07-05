@@ -76,7 +76,7 @@ public class Nivel_DB_DAO extends Conexion_DB_DAO{
             niveles = new ArrayList<Nivel>();
             
             while(rs.next()) {
-                niveles.add( new Nivel(rs.getInt(0), rs.getString(1), rs.getInt(2)));
+                niveles.add( new Nivel(rs.getInt(1), rs.getString(2), rs.getInt(3)));
             }
             
         }

@@ -23,7 +23,7 @@ public class Calificacion_DB_DAO extends Conexion_DB_DAO {
             ResultSet rs = con.ejecutarSQLSelect(SQL_CALIFICACION + id);
             
             if(rs.next() == true) {
-                calificacion = new Calificacion(id, rs.getString(0));
+                calificacion = new Calificacion(id, rs.getString(1));
             }
             
             
@@ -52,7 +52,7 @@ public class Calificacion_DB_DAO extends Conexion_DB_DAO {
             ResultSet rs = con.ejecutarSQLSelect("select last_insert_id();");
 
             if (rs.next() == true) {
-                id = rs.getInt(0);
+                id = rs.getInt(1);
             } else {
                 id = null;
             }

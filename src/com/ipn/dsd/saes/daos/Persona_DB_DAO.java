@@ -57,7 +57,7 @@ public class Persona_DB_DAO extends Conexion_DB_DAO{
                 rs = con.ejecutarSQLSelect(GET_ID);
                 
                 if(rs.next() == true) {
-                    id = rs.getInt(0);
+                    id = rs.getInt(1);
                 }
                 
             }

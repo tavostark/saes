@@ -22,7 +22,7 @@ public class Alumno_DB_DAO extends Conexion_DB_DAO {
             
             if(rs.next() == true) {
                 alumno = new Alumno();
-                alumno.setBoleta(rs.getString(0));
+                alumno.setBoleta(rs.getString(1));
                 alumno.setId_alumno(id_alumno);
             }
             

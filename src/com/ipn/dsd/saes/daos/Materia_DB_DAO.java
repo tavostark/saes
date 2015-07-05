@@ -42,7 +42,7 @@ public class Materia_DB_DAO extends Conexion_DB_DAO{
                 ResultSet rs = con.ejecutarSQLSelect(GET_ID);
                 
                 if(rs.next() == true) {
-                    resultado = rs.getInt(0);
+                    resultado = rs.getInt(1);
                 }
                 
            }
@@ -94,7 +94,7 @@ public class Materia_DB_DAO extends Conexion_DB_DAO{
             materias  = new ArrayList<Materia>();
             
             while(rs.next()) {
-                Materia materia = new Materia(rs.getInt(0), rs.getInt(1), rs.getInt(2), rs.getString(3));
+                Materia materia = new Materia(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
                 materias.add(materia);
             }
             
@@ -124,7 +124,7 @@ public class Materia_DB_DAO extends Conexion_DB_DAO{
             materias  = new ArrayList<Materia>();
             
             while(rs.next()) {
-                Materia materia = new Materia(rs.getInt(0), rs.getInt(1), rs.getInt(2), rs.getString(3));
+                Materia materia = new Materia(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
                 materias.add(materia);
             }
             
