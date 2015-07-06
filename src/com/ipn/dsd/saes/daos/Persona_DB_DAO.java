@@ -19,7 +19,7 @@ public class Persona_DB_DAO extends Conexion_DB_DAO{
          try{
                 
                 con.crearConexion();
-                ResultSet rs=con.ejecutarSQLSelect(SQL_PERSONA+id);
+                ResultSet rs=con.ejecutarSQLSelect(SQL_PERSONA+id+";");
                
                 if(rs.next() == true) {
                     persona = new Persona();

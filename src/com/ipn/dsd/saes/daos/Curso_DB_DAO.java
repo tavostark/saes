@@ -2,6 +2,7 @@
 package com.ipn.dsd.saes.daos;
 
 import com.ipn.dsd.saes.entidad.Curso;
+import com.ipn.dsd.saes.entidad.Profesor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -11,20 +12,28 @@ public class Curso_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_CURSO_DELETE="DELETE FROM curso WHERE ";
     private static String SQL_CURSO_UPDATE="UPDATE curso SET ";
     
-    public ResultSet curso_select(){
-        ResultSet rs= null;
+    public Curso curso_select(){
+        
+        Conexion_DB_DAO con =new Conexion_DB_DAO();
+        Curso curso=null;
          try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+                
                 
                 con.crearConexion();
-                rs=con.ejecutarSQLSelect(SQL_CURSO);
-                con.cerrarConexion();
-                return rs;
+                ResultSet rs=con.ejecutarSQLSelect(SQL_CURSO);
+                if(rs.next() == true) {
+                 curso = new Curso(rs.getInt(0),rs.getInt(1),rs.getInt(2),rs.getInt(3));
+                        
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
-                return rs;
+               
           }
+         finally {
+            con.cerrarConexion();
+         }
+         return curso;
     }
                 //INSERT, DELETE y UPDATE
     public Integer curso_insert (Curso curso){
@@ -53,17 +62,30 @@ public class Curso_DB_DAO extends Conexion_DB_DAO{
             return id;
     }
     
-    public void curso_delete (String id_periodo, String id_materia, String id_area, String id_profesor){
+    public Integer curso_delete (Curso curso){//Integer id_periodo,Integer id_materia,Integer id_area,Integer id_profesor
+            
+            Integer res=null;
+            boolean rs=false;
+            Conexion_DB_DAO con =new Conexion_DB_DAO();
             try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+                
                 
                 con.crearConexion();
-                con.ejecutarSQL(SQL_CURSO_DELETE+"id_periodo="+id_periodo+" AND id_materia="+id_materia+" AND id_area="+id_area+" AND id_profesor="+id_profesor);
-                con.cerrarConexion();
+                rs=con.ejecutarSQL(SQL_CURSO_DELETE+"id_periodo="+curso.getId_periodo()+" AND id_materia="+curso.getId_materia()+" AND id_area="+curso.getId_area()+" AND id_profesor="+curso.getId_profesor()+";");
+                if (rs == true) {
+                    res=1;
+                } else {
+                    res = null;
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
             }
+            finally {
+            con.cerrarConexion();
+            }
+
+        return res;
     }
     
     public ArrayList<Curso> getCursosPeriodo(Integer idPeriodo) {
@@ -92,16 +114,5 @@ public class Curso_DB_DAO extends Conexion_DB_DAO{
         return cursos;
         
     }
-  /*  public void curso_update (String id_periodo, String id_materia, String id_area, String id_profesor){
-            try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
-          curso      
-                con.crearConexion();
-                con.ejecutarSQL(SQL_CURSO_UPDATE+id_period,id_materia,id_area,id_profeso+" WHERE \"id_periodo=\"+id_periodo+\"AND id_materia=\"+id_materia+\" AND id_area=\"+id_area+\" AND id_profesor=\"+id_profesor);
-                con.cerrarConexion();
-                }
-            catch(Exception e){
-                System.out.println("SQLException: " + e);
-            }
-    }*/
+
 }

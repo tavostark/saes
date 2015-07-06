@@ -73,17 +73,28 @@ public class Periodo_DB_DAO extends Conexion_DB_DAO{
     }
     
     
-    public void periodo_delete (String id_periodo){
+    public Integer periodo_delete (Integer id_periodo){
+        Integer resultado = null;
+        Conexion_DB_DAO con =new Conexion_DB_DAO();
+        boolean rs=false;
             try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
                 
                 con.crearConexion();
                 con.ejecutarSQL(SQL_PERIODO_DELETE+id_periodo);
-                con.cerrarConexion();
+                 if (rs == true) {
+                    resultado=1;
+                } else {
+                    resultado = null;
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
             }
+            finally {
+            con.cerrarConexion();
+            }
+        
+        return resultado;
     }
     
     public Integer periodo_update (Periodo periodo){

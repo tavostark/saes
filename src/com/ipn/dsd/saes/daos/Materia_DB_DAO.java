@@ -1,6 +1,7 @@
 
 package com.ipn.dsd.saes.daos;
 
+import com.ipn.dsd.saes.entidad.Curso;
 import com.ipn.dsd.saes.entidad.Materia;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,20 +14,25 @@ public class Materia_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_MATERIA_UPDATE="UPDATE materia SET nb_materia=";
     private static String GET_ID="select last_insert_id()";
     
-    public ResultSet materia_select (String id_area){
-        ResultSet rs= null;
-         try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+    public Materia materia_select (Integer id_materia){
+        
+         Conexion_DB_DAO con =new Conexion_DB_DAO();
+         Materia materia =null;
+            try{
+                
                 
                 con.crearConexion();
-                rs=con.ejecutarSQLSelect(SQL_MATERIA+id_area);
-                con.cerrarConexion();
-                return rs;
+                ResultSet rs=con.ejecutarSQLSelect(SQL_MATERIA+id_materia+";");
+                if(rs.next() == true) {
+                   materia = new Materia(id_materia,rs.getInt(0),rs.getInt(1),rs.getString(2));
+                          
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
-                return rs;
+                
           }
+            return materia;
     }
     //INSERT, DELETE y UPDATE
     public Integer materia_insert (Materia materia){
@@ -57,29 +63,52 @@ public class Materia_DB_DAO extends Conexion_DB_DAO{
             return resultado;
     }
     
-    public void materia_delete (String id_area){
-            try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+    public Integer materia_delete (Integer id_area){
+        Integer resultado = null;
+        Conexion_DB_DAO con =new Conexion_DB_DAO();
+        boolean rs=false;
+        try{
                 
                 con.crearConexion();
-                con.ejecutarSQL(SQL_MATERIA_DELETE+id_area);
-                con.cerrarConexion();
+                rs=con.ejecutarSQL(SQL_MATERIA_DELETE+id_area);
+                if (rs == true) {
+                    resultado=1;
+                } else {
+                    resultado = null;
+                }
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
             }
+            finally {
+                con.cerrarConexion();
+            }
+            
+            return resultado;
     }
-    public void materia_update (String id_area, String id_nivel, String nb_materia){
+    public Integer materia_update (Integer id_area,Integer id_nivel,String nb_materia){
+           Conexion_DB_DAO con =new Conexion_DB_DAO();
+           Integer res=null;
+           boolean rs=false;
             try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
+                
                 
                 con.crearConexion();
-                con.ejecutarSQL(SQL_MATERIA_UPDATE+nb_materia+" WHERE id_area="+id_area+"AND id_nivel="+id_nivel);
-                con.cerrarConexion();
+                rs=con.ejecutarSQL(SQL_MATERIA_UPDATE+nb_materia+" WHERE id_area="+id_area+"AND id_nivel="+id_nivel);
+                if (rs == true) {
+                    res=1;
+                } else {
+                    res = null;
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
             }
+            finally {
+                con.cerrarConexion();
+            }
+            
+            return res;
     }
     
     public ArrayList<Materia> getListaMateriasArea(Integer idArea) {

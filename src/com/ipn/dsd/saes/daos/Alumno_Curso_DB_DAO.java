@@ -9,56 +9,48 @@ public class Alumno_Curso_DB_DAO extends Conexion_DB_DAO{
     private static String SQL_ALUMNO_CURSO_DELETE="DELETE FROM alumno_curso WHERE ";
     private static String SQL_ALUMNO_CURSO_UPDATE="UPDATE alumno_curso SET ";
     
-    public ResultSet alumno_curso_select (){
-        ResultSet rs = null;
-         try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
-                
+
+                //INSERT, DELETE
+    public Integer alumno_curso_insert (Integer id_alumno,Integer id_periodo,Integer id_materia,Integer id_area,Integer id_profesor,Integer id_calificacion){
+            Conexion_DB_DAO con =new Conexion_DB_DAO();
+            Integer res=null;
+            boolean rs=false;
+            try{
                 con.crearConexion();
-                rs=con.ejecutarSQLSelect(SQL_ALUMNO_CURSO);
-                con.cerrarConexion();
-                return rs;
+                rs=con.ejecutarSQL(SQL_ALUMNO_CURSO_INSERT+id_alumno+","+id_periodo+","+id_materia+","+id_area+","+id_profesor+","+id_calificacion+");");
+                if (rs == true) {
+                res = 1;
+                } else {
+                res = null;
                 }
+            }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
-                return rs;
-          }
+            }
+            finally {
+            con.cerrarConexion();
+            }
+        return res;
     }
-                //INSERT, DELETE y UPDATE
-    public void alumno_curso_insert (String id_alumno,String id_periodo,String id_materia,String id_area,String id_profesor,String id_calificacion){
-            try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
-                
+    public Integer alumno_curso_delete (String id_alumno,String id_periodo,String id_materia,String id_area,String id_profesor,String id_calificacion){
+            Conexion_DB_DAO con =new Conexion_DB_DAO();
+            Integer res=null;
+            boolean rs=false;
+           try{
                 con.crearConexion();
-                con.ejecutarSQL(SQL_ALUMNO_CURSO_INSERT+id_alumno+","+id_periodo+","+id_materia+","+id_area+","+id_profesor+","+id_calificacion+");");
-                con.cerrarConexion();
+                rs=con.ejecutarSQL(SQL_ALUMNO_CURSO_DELETE+"id_alumno="+id_alumno+" AND id_periodo="+id_periodo+" AND id_materia="+id_materia+" AND id_area="+id_area+" AND id_profesor="+id_profesor+" AND id_calificacion="+id_calificacion);
+                if (rs == true) {
+                res = 1;
+                } else {
+                res = null;
+                }
                 }
             catch(Exception e){
                 System.out.println("SQLException: " + e);
             }
-    }
-    public void alumno_curso_delete (String id_alumno,String id_periodo,String id_materia,String id_area,String id_profesor,String id_calificacion){
-            try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
-                
-                con.crearConexion();
-                con.ejecutarSQL(SQL_ALUMNO_CURSO_DELETE+"id_alumno="+id_alumno+" AND id_periodo="+id_periodo+" AND id_materia="+id_materia+" AND id_area="+id_area+" AND id_profesor="+id_profesor+" AND id_calificacion="+id_calificacion);
-                con.cerrarConexion();
-                }
-            catch(Exception e){
-                System.out.println("SQLException: " + e);
+           finally {
+            con.cerrarConexion();
             }
+        return res;
     }
-  /*  public void alumno_curso_update (String id_alumno,String id_periodo,String id_materia,String id_area,String id_profesor,String id_calificacion){
-            try{
-                Conexion_DB_DAO con =new Conexion_DB_DAO();
-                
-                con.crearConexion();
-                con.ejecutarSQL(SQL_CURSO_UPDATE+id_period,id_materia,id_area,id_profeso+" WHERE \"id_periodo=\"+id_periodo+\"AND id_materia=\"+id_materia+\" AND id_area=\"+id_area+\" AND id_profesor=\"+id_profesor);
-                con.cerrarConexion();
-                }
-            catch(Exception e){
-                System.out.println("SQLException: " + e);
-            }
-    }*/
 }
