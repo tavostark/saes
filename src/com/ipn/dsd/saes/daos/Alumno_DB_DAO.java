@@ -1,7 +1,9 @@
 package com.ipn.dsd.saes.daos;
 
 import com.ipn.dsd.saes.entidad.Alumno;
+import com.ipn.dsd.saes.entidad.Materia;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Alumno_DB_DAO extends Conexion_DB_DAO {
 
@@ -102,5 +104,52 @@ public class Alumno_DB_DAO extends Conexion_DB_DAO {
         return resultado;
 
     } 
+    public ArrayList Consultar_materias(Integer id_alumno) {//
 
+         ArrayList Consultar_materias = null;
+        ResultSet rs = null;
+       
+        //Conexion_DB_DAO con = new Conexion_DB_DAO();
+
+        try {
+
+            crearConexion();
+            rs = ejecutarSQLSelect("SELECT nb_materia FROM alumno t1 JOIN alumno_curso t2 ON t1.id_alumno=t2.id_alumno join curso t3 ON t2.id_periodo=t3.id_periodo JOIN materia t4 ON t3.id_materia=t4.id_materia where t1.id_alumno="+id_alumno+ ";");
+            Consultar_materias  = new ArrayList();
+            if(rs.next() == true) {
+                 Consultar_materias.add(rs.getInt(0));
+                }
+
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e);
+        } finally {
+            cerrarConexion();
+        }
+
+        return Consultar_materias;
+    } 
+    public ArrayList Consultar_Calificaciones(Integer id_alumno) {//
+
+        ArrayList Consultar_Calificaciones = null;
+        ResultSet rs = null;
+        //Conexion_DB_DAO con = new Conexion_DB_DAO();
+
+        try {
+
+            crearConexion();
+           rs = ejecutarSQLSelect("SELECT tx_calificacion FROM alumno t1 JOIN alumno_curso t2 ON t1.id_alumno=t2.id_alumno join calificacion t3 ON t2.id_calificacion=t3.id_calificacion where t1.id_alumno="+id_alumno+ ";");
+           Consultar_Calificaciones  = new ArrayList();
+            if(rs.next() == true) {
+                 Consultar_Calificaciones.add(rs.getInt(0));
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e);
+        } finally {
+            cerrarConexion();
+        }
+
+        return Consultar_Calificaciones;
+    } 
 }

@@ -2,7 +2,6 @@
 package com.ipn.dsd.saes.daos;
 
 import com.ipn.dsd.saes.entidad.Curso;
-import com.ipn.dsd.saes.entidad.Profesor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 

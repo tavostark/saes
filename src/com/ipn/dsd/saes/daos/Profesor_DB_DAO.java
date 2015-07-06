@@ -3,6 +3,8 @@ package com.ipn.dsd.saes.daos;
 
 import com.ipn.dsd.saes.entidad.*;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Profesor_DB_DAO extends Conexion_DB_DAO{
     private static  String SQL_PROFESOR = "select rfc from profesor where id_profesor=";
@@ -107,4 +109,50 @@ public class Profesor_DB_DAO extends Conexion_DB_DAO{
             }
             return res;
     }
+    public ArrayList Consultar_Cursos(Integer id_profesor,Date fh_inicio) {//
+
+        ArrayList Consultar_Cursos = null;
+        ResultSet rs = null;
+
+        try {
+
+            crearConexion();
+            rs = ejecutarSQLSelect("SELECT nb_periodo FROM profesor t1 JOIN curso t2 ON t1.id_profesor=t2.id_profesor join periodo t3 ON t2.id_periodo=t3.id_periodo where t1.id_profesor="+id_profesor+" AND t4.fh_inicio="+fh_inicio+";");
+            Consultar_Cursos  = new ArrayList();
+            if(rs.next() == true) {
+                 Consultar_Cursos.add(rs.getInt(0));
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e);
+        } finally {
+            cerrarConexion();
+        }
+
+        return Consultar_Cursos;
+    } 
+    public ArrayList Consultar_Alumnos_Inscritos(Integer id_profesor,Integer id_materia) {//
+
+        ArrayList Consultar_AI = null;
+        ResultSet rs = null;
+
+        try {
+
+            crearConexion();
+            rs = ejecutarSQLSelect("SELECT boleta FROM profesor t1 JOIN curso t2 ON t1.id_profesor=t2.id_profesor join alumno_curso t3 ON t2.id_periodo=t3.id_periodo JOIN alumno ON t4.id_alumno=t3.id_alumno where t1.id_pro="+id_profesor+" AND t3.id_materia="+id_materia+";");
+            Consultar_AI  = new ArrayList();
+            if(rs.next() == true) {
+                 Consultar_AI.add(rs.getInt(0));
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e);
+        } finally {
+            cerrarConexion();
+        }
+
+        return Consultar_AI;
+    } 
 }
