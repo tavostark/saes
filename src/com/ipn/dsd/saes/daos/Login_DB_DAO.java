@@ -27,8 +27,10 @@ public class Login_DB_DAO {
                 if(rs.next()== true ) {
                     
                     persona = new Persona();
-                    persona.setNb_persona(rs.getString(0));
-                    persona.setPassword(rs.getString(1));
+                    persona.setNb_persona(rs.getString(1));
+                 
+                    persona.setPassword(rs.getString(2));
+                   
                     alumno = new Alumno(boleta, persona);
                 } 
                 else {
@@ -69,8 +71,8 @@ public class Login_DB_DAO {
                         
                 if(rs.next()== true ) {
                     persona = new Persona();
-                    persona.setNb_persona(rs.getString(0));
-                    persona.setPassword(rs.getString(1));
+                    persona.setNb_persona(rs.getString(1));
+                    persona.setPassword(rs.getString(2));
                     
                     profesor = new Profesor(rfc, persona);
                 } 

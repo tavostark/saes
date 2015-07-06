@@ -64,9 +64,9 @@ public class Server {
             registry.rebind("rmi://localhost/AlCur_Mod", alcur);
             registry.rebind("rmi://localhost/Alumno_Mod", alumno);
             registry.rebind("rmi://localhost/Calificacion_Mod", calificacion);
-            registry.rebind("rim://localhost/Control_Acceso_Mod", control);
-            registry.rebind("rim://localhost/Curso_Mod", curso);
-            registry.rebind("rmi://localhsot/Materia_Mod", materia);
+            registry.rebind("rmi://localhost/Control_Acceso_Mod", control);
+            registry.rebind("rmi://localhost/Curso_Mod", curso);
+            registry.rebind("rmi://localhost/Materia_Mod", materia);
             registry.rebind("rmi://localhost/Nivel_Mod", nivel);
             registry.rebind("rmi://localhost/Periodo_Mod", periodo);
             registry.rebind("rmi://localhost/Persona_Mod", persona);

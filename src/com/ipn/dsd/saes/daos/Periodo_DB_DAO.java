@@ -57,7 +57,7 @@ public class Periodo_DB_DAO extends Conexion_DB_DAO{
                 ResultSet rs = con.ejecutarSQLSelect("select last_insert_id();");
                 
                 if(rs.next() == true) {
-                    resultado = rs.getInt(0);
+                    resultado = rs.getInt(1);
                 }
                 
         }
@@ -132,7 +132,7 @@ public class Periodo_DB_DAO extends Conexion_DB_DAO{
             ResultSet rs = con.ejecutarSQLSelect(SQL_PERIODO);
             periodos = new ArrayList<Periodo>();
             while(rs.next()) {
-                periodos.add( new Periodo(rs.getInt(0), rs.getString(1), rs.getDate(2), rs.getDate(3), rs.getDate(4), rs.getDate(5)));
+                periodos.add( new Periodo(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), rs.getDate(6)));
             }
             
         }
